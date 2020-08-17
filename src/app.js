@@ -10,6 +10,8 @@ if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
   console.error('WebGL is not supported in this browser.');
 }
 
+var viewerLoaded = false;
+
 class App {
 
   /**
@@ -121,8 +123,32 @@ class App {
       .catch((e) => this.onError(e))
       .then((gltf) => {
         if (!this.options.kiosk) {
-          this.validationCtrl.validate(fileURL, rootPath, fileMap, gltf);
+          //this.validationCtrl.validate(fileURL, rootPath, fileMap, gltf);
         }
+        console.log("viewer then");
+        // MODEL IS FULLY LOADED
+        document.getElementById("loading").style.display = "none";
+        document.app = this.viewer;
+
+        // Handle the 3 icons functions
+        document.getElementById('rotate').onclick = function(){
+          document.app.controls.autoRotate= !document.app.controls.autoRotate;
+        }
+
+        document.getElementById('wireframe').onclick = function() {
+          document.app.state.wireframe = !document.app.state.wireframe;
+          document.app.updateDisplay();
+        }
+
+        document.getElementById('light').onclick = function() {
+          document.app.state.addLights = !document.app.state.addLights;
+          if (document.app.state.addLights && !document.app.lights.length) {
+            document.app.addLights();
+          } else if (!document.app.state.addLights && document.app.lights.length) {
+            document.app.removeLights();
+          }
+        }
+
         cleanup();
       });
   }
@@ -153,7 +179,5 @@ class App {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
   const app = new App(document.body, location);
-
 });

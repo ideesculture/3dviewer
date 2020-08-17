@@ -54,6 +54,9 @@ const Preset = {ASSET_GENERATOR: 'assetgenerator'};
 
 Cache.enabled = true;
 
+var hasFullyLoaded = false;
+var viewerLoaded = false;
+
 export class Viewer {
 
   constructor (el, options) {
@@ -147,6 +150,7 @@ export class Viewer {
     this.animate = this.animate.bind(this);
     requestAnimationFrame( this.animate );
     window.addEventListener('resize', this.resize.bind(this), false);
+
   }
 
   animate (time) {
@@ -154,6 +158,9 @@ export class Viewer {
     requestAnimationFrame( this.animate );
 
     const dt = (time - this.prevTime) / 1000;
+    if(!hasFullyLoaded && ((time - this.prevTime)>250)) {
+      hasFullyLoaded = true;
+    }
 
     this.controls.update();
     this.stats.update();
@@ -248,11 +255,11 @@ export class Viewer {
         // DRACOLoader.releaseDecoderModule();
 
         resolve(gltf);
-
+        viewerLoaded = true;
+        console.log("viewer ok");
       }, undefined, reject);
 
     });
-
   }
 
   /**
@@ -328,7 +335,6 @@ export class Viewer {
     window.content = this.content;
     console.info('[glTF Viewer] THREE.Scene exported as `window.content`.');
     this.printGraph(this.content);
-
   }
 
   printGraph (node) {
@@ -547,6 +553,7 @@ export class Viewer {
     this.axesCorner = new AxesHelper(5);
     this.axesScene.add( this.axesCorner );
     this.axesDiv.appendChild(this.axesRenderer.domElement);
+
   }
 
   addGUI () {
@@ -622,7 +629,6 @@ export class Viewer {
     guiWrap.classList.add('gui-wrap');
     guiWrap.appendChild(gui.domElement);
     gui.open();
-
   }
 
   updateGUI () {
@@ -697,6 +703,7 @@ export class Viewer {
         this.animCtrls.push(ctrl);
       });
     }
+    console.log("updategui");
   }
 
   clear () {
@@ -707,24 +714,16 @@ export class Viewer {
 
     // dispose geometry
     this.content.traverse((node) => {
-
       if ( !node.isMesh ) return;
-
       node.geometry.dispose();
-
     } );
 
     // dispose textures
     traverseMaterials( this.content, (material) => {
-
       MAP_NAMES.forEach( (map) => {
-
         if (material[ map ]) material[ map ].dispose();
-
       } );
-
     } );
-
   }
 
 };
@@ -736,5 +735,6 @@ function traverseMaterials (object, callback) {
       ? node.material
       : [node.material];
     materials.forEach(callback);
+    console.log("traverseMaterials");
   });
 }
