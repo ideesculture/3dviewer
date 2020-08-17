@@ -2,7 +2,7 @@
 
 
 
-This viewer is a customised/modified version of (Don McCurdy viewer)[https://github.com/donmccurdy/three-gltf-viewer], which has a kiosk mode and a direct call to model not really documented.
+This viewer is a customised/modified version of [Don McCurdy viewer](https://github.com/donmccurdy/three-gltf-viewer), which has a kiosk mode and a direct call to model not really documented.
 Those are the simple features added :
 - documentation on how to call it with local assets
 - 3 simple buttons to toggle on/off the 3 main features our tests revealed to be the fastly end-user appropriated
