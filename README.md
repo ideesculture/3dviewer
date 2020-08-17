@@ -17,9 +17,9 @@ https://domain.ext/index.html#model=https://domain.ext/inrap3d/montagne-de-lure-
 Files need to be served from the same server than the viewer to avoid CORS errors
 
 ## TODO
--[x] simple icons for lights on/off, wireframe...
--[ ] download as a zip with index.html renamed for direct deployment
--[ ] remove and embed from root to be able to run inside subfolders
+- [x] simple icons for lights on/off, wireframe... 
+- [ ] download as a zip with index.html renamed for direct deployment 
+- [ ] remove and embed from root to be able to run inside subfolders 
 
 ## Will not be done
 - Add the ability to load from other servers : WNBD
