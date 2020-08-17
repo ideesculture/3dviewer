@@ -6,3 +6,4 @@ package/*
 !package/.gitkeep
 .cache
 .idea
+public
