@@ -1,6 +1,6 @@
 # 3dviewer
 
-
+![welcome screen](https://repository-images.githubusercontent.com/287203408/1c7adf00-e0ad-11ea-8ef6-e4d862f0e09d)
 
 This viewer is a customised/modified version of [Don McCurdy viewer](https://github.com/donmccurdy/three-gltf-viewer), which has a kiosk mode and a direct call to model not really documented.
 Those are the simple features added :
