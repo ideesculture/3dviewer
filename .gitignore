@@ -5,3 +5,4 @@ dist
 package/*
 !package/.gitkeep
 .cache
+.idea
